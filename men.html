@@ -16,10 +16,6 @@
       </div>
       <div class="header-icons">
         <input type="text" id="search-bar" placeholder="Search for products..." />
-        <div class="icons">
-          <a href="profile.html" class="profile-icon">👤</a>
-          <a href="cart.html" class="cart-icon">🛒</a>
-        </div>
       </div>
     </div>
   </header>
@@ -29,10 +25,6 @@
       <li><a href="home.html">Home</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="index.html">Login</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="product.html">Products</a></li>
-      <li><a href="terms.html">Terms & Conditions</a></li>
-      <li><a href="privacy.html">Privacy Policy</a></li>
     </ul>
   </nav>
 
@@ -207,7 +199,7 @@
 }
 
 .product-card {
-  background-color: #fff;
+  background-color: #ecf6f6;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -240,14 +232,14 @@ h3{
   color: #555;
 }
 header {
-    background-color: #34495e;
+    background-color: #8bbff8;
     padding: 20px 0;
     color: white;
     text-align: center;
   }
 .add-to-cart-btn,
 .shop-now-btn {
-  background-color: #ff7f50;
+  background-color: #00e927;
   color: white;
   padding: 10px;
   border: none;
@@ -256,7 +248,7 @@ header {
 }
 
 .shop-now-btn {
-  background-color: #008CBA;
+  background-color: #0ef10a;
 }
 
 .add-to-cart-btn,
@@ -265,24 +257,95 @@ header {
 }
 .banner p{
     font-size: 1.5rem;
-    color: rgb(245, 42, 42);
+    color: rgb(228, 153, 22);
 }
 
 
     .shop-now-btn {
-      background-color: #008CBA;
+      background-color: #3700ff;
       color: white;
       padding: 10px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
+    
     header .logo a {
     font-size: 36px;
     font-weight: bold;
     color: white;
     text-decoration: none;
   }
+  /* Media Query for Small Screens (max-width: 600px) */
+@media (max-width: 600px) {
+  .product-grid {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 20px; /* Space between items */
+  }
+
+  .product-card {
+    width: 100%; /* Full width of the screen */
+    max-width: 350px; /* Optional: limit the width */
+  }
+
+  .product-info {
+    text-align: center; /* Center-align product information */
+  }
+
+  .product-card img {
+    max-width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+  }
+}
+
+/* Navigation Tabs Styling */
+.nav-tabs {
+  background-color: #ee1ccb;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent line breaks */
+}
+
+.nav-tabs ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: nowrap; /* Prevent wrapping of buttons */
+}
+
+.nav-tabs li {
+  flex-shrink: 0; /* Prevent shrinking of buttons */
+}
+
+.nav-tabs a {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px; /* Adjust font size for mobile */
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Prevent text wrapping inside buttons */
+}
+
+.nav-tabs a:hover {
+  background-color: #921236; /* Highlight color on hover */
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 600px) {
+  .nav-tabs ul {
+    justify-content: flex-start; /* Align buttons to the left */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .nav-tabs a {
+    font-size: 12px; /* Further reduce font size for small screens */
+    padding: 20px 40px; /* Reduce padding for compact buttons */
+  }
+}
     /* Cart Popup Styling */
     .cart-popup {
       position: fixed;
