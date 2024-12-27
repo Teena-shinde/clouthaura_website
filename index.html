@@ -238,49 +238,34 @@ footer {
   
   <script>
     
-        document.querySelector("form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission behavior
+      // Clear the form fields on page load
+window.onload = function() {
+  const loginForm = document.getElementById('login-form');
+  if (loginForm) {
+    loginForm.reset(); // Clears all input fields in the form
+  }
+};
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+// JavaScript for login validation
+document.getElementById('login-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form submission
 
-            // Validate if email and password are entered
-            if (email.trim() === "" || password.trim() === "") {
-                alert("Please fill in all fields.");
-                return;
-            }
+  // Get input values
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
 
-            // Retrieve stored users from localStorage
-            const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+  // Retrieve stored user data from localStorage
+  const storedUser = JSON.parse(localStorage.getItem('users'));
 
-            // Find the user by email
-            const user = existingUsers.find(user => user.email === email);
-
-            if (!user) {
-                alert("No user found with this email.");
-                return;
-            }
-
-            // Check if the password matches
-            if (user.password !== password) {
-                alert("Incorrect password.");
-                return;
-            }
-
-            // Store the logged-in user information
-            localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-            // Show success notification
-            const notification = document.getElementById("notification");
-            notification.classList.add("show");
-
-            // Redirect to the homepage after 3 seconds
-            setTimeout(() => {
-                notification.classList.remove("show");
-                window.location.href = "home.html"; // Redirect to home page
-            }, 3000);
-        });
-    
+  // Validate credentials
+  if (storedUser && storedUser.email === username && storedUser.password === password) {
+    // Show alert and redirect to the home page when "OK" is clicked
+    alert("Login successful!");
+    window.location.href = "home.html";
+  } else {
+    alert("Invalid email or password. Please try again.");
+  }
+});
   </script>
 </body>
 </html>
