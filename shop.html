@@ -5,21 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enhanced Order Form</title>
   <style>
-    /* General Styles */
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       overflow: hidden;
     }
 
-    /* Form Container */
-    .order-form-container {
+    .order-form-container, .order-success-popup {
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -41,18 +40,13 @@
       }
     }
 
-    .order-form-container h2 {
+    h2 {
+      font-size: 2rem;
       color: #333;
       margin-bottom: 10px;
-      font-size: 2rem;
-      font-weight: bold;
     }
 
-    .order-form-container form {
-      margin-top: 20px;
-    }
-
-    .order-form-container form label {
+    form label {
       display: block;
       text-align: left;
       margin-bottom: 6px;
@@ -60,9 +54,7 @@
       color: #555;
     }
 
-    .order-form-container form input,
-    .order-form-container form select,
-    .order-form-container form button {
+    form input, form select, form button {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
@@ -72,14 +64,13 @@
       transition: all 0.3s ease;
     }
 
-    .order-form-container form input:focus,
-    .order-form-container form select:focus {
+    form input:focus, form select:focus {
       border-color: #86A8E7;
       outline: none;
       box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
     }
 
-    .order-form-container form button {
+    form button {
       background: linear-gradient(90deg, #86A8E7, #91EAE4);
       color: #fff;
       border: none;
@@ -90,60 +81,17 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .order-form-container form button:hover {
+    form button:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
 
-    /* Product Image Preview */
-    .product-image {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      background: #ddd;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-
-    .product-image img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .product-image:hover {
-      transform: scale(1.1);
-    }
-
-    /* Success Popup */
     .order-success-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      z-index: 1002;
-      transition: transform 0.5s ease;
+      display: none;
     }
 
     .order-success-popup.active {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .order-success-popup h2 {
-      font-size: 1.8rem;
-      color: #28a745;
-      margin-bottom: 10px;
-      font-weight: bold;
+      display: block;
     }
 
     .order-success-popup p {
@@ -170,36 +118,29 @@
   </style>
 </head>
 <body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
 
-<div class="order-form-container">
-  <h2>Place Your Order</h2>
-  <div class="product-image">
-    <img src="https://cdn.vectorstock.com/i/1000x1000/74/56/initial-t-letter-logo-creative-modern-typography-vector-42367456.webp" alt="Product Preview">
-  </div>
-  <form id="order-form">
-    <!-- Product Details -->
-    <label for="customer-name">Your Name</label>
-    <input type="text" id="customer-name" placeholder="Enter your name" required>
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
 
-    <label for="customer-email">Your Email</label>
-    <input type="email" id="customer-email" placeholder="Enter your email" required>
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
 
-    <label for="customer-address">Shipping Address</label>
-    <input type="text" id="customer-address" placeholder="Enter your address" required>
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
 
-    <label for="product-quantity">Quantity</label>
-    <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
-
-    <!-- Payment Details -->
-    <label for="payment-method">Payment Method</label>
-    <select id="payment-method" required>
-      <option value="" disabled selected>Select Payment Method</option>
-      <option value="credit-card">Credit Card</option>
-      <option value="paypal">PayPal</option>
-      <option value="bank-transfer">Bank Transfer</option>
-    </select>
-
-    <!-- Credit Card Details -->
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
     <div id="credit-card-details" style="display: none;">
       <label for="card-number">Credit Card Number</label>
       <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
@@ -210,49 +151,1211 @@
       <label for="cvv">CVV</label>
       <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
     </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
 
-    <button type="submit">Place Order</button>
-  </form>
-</div>
+  <script>
+    document.getElementById<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-<!-- Success Popup -->
-<div id="order-success-popup" class="order-success-popup">
-  <h2>Order Placed Successfully!</h2>
-  <p>Thank you for your order! Your payment has been received, and your product will be shipped soon. 🎉</p>
-  <button id="close-popup">Close</button>
-</div>
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const orderForm = document.getElementById("order-form");
-    const successPopup = document.getElementById("order-success-popup");
-    const closePopupButton = document.getElementById("close-popup");
-    const paymentMethod = document.getElementById("payment-method");
-    const creditCardDetails = document.getElementById("credit-card-details");
-
-    // Handle payment method change
-    paymentMethod.addEventListener("change", (event) => {
-      if (event.target.value === "credit-card") {
-        creditCardDetails.style.display = "block";
-      } else {
-        creditCardDetails.style.display = "none";
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
       }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById("order-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
     });
+  </script>
+</body>    
+</html>("order-form").addEventListener("submit", function(event) {
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-    // Handle form submission
-    orderForm.addEventListener("submit", (event) => {
-      event.preventDefault(); // Prevent default form submission
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
 
-      // Show success popup
-      successPopup.classList.add("active");
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById("order-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
     });
-
-    // Close success popup
-    closePopupButton.addEventListener("click", () => {
-      successPopup.classList.remove("active");
+  </script>
+</body>    
+</html>("order-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
     });
-  });
-</script>
+  </script>
+</body>    
+</html> event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
+    });
+  </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-</body>
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById("order-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
+    });
+  </script>
+</body>    
+</html>("order-form").addEventListener("submit", function(event) {
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Order Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .order-form-container, .order-success-popup {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    form input, form select, form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #86A8E7;
+      outline: none;
+      box-shadow: 0 0 10px rgba(134, 168, 231, 0.5);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #86A8E7, #91EAE4);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-success-popup {
+      display: none;
+    }
+
+    .order-success-popup.active {
+      display: block;
+    }
+
+    .order-success-popup p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-success-popup button {
+      padding: 10px 20px;
+      background: #7F7FD5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-success-popup button:hover {
+      background: #6b6bb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <h2>Place Your Order</h2>
+    <form id="order-form">
+      <label for="customer-name">Your Name</label>
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+      <label for="customer-email">Your Email</label>
+      <input type="email" id="customer-email" placeholder="Enter your email" required>
+
+      <label for="customer-address">Shipping Address</label>
+      <input type="text" id="customer-address" placeholder="Enter your address" required>
+
+      <label for="product-quantity">Quantity</label>
+      <input type="number" id="product-quantity" placeholder="Enter quantity" min="1" required>
+
+      <label for="payment-method">Payment Method</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Bank Transfer</option>
+    boselect>
+       <!-- Credit Card Details -->
+    <div id="credit-card-details" style="display: none;">
+      <label for="card-number">Credit Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter your card number" maxlength="16" required>
+
+      <label for="expiry-date">Expiry Date</label>
+      <input type="month" id="expiry-date" required>
+
+      <label for="cvv">CVV</label>
+      <input type="number" id="cvv" placeholder="Enter CVV" maxlength="3" required>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div class="order-success-popup" id="order-success-popup">
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order! Your payment has been received, and your product will be shipped soon.</p>
+    <button onclick="window.location.reload()">Back to Home</button>
+  </div>
+
+  <script>
+    document.getElementById("order-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
+    });
+  </script>
+</body>    
+</html>("order-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
+    });
+  </script>
+</body>    
+</html> event.preventDefault(); // Prevent form submission
+      document.querySelector(".order-form-container").style.display = "none"; // Hide form
+      document.getElementById("order-success-popup").classList.add("active"); // Show success popup
+    });
+  </script>
+</body>    
+</html>
+</body>    
 </html>
